@@ -1,0 +1,42 @@
+## List all services
+## Create a generic service template
+## Create two specific service to use as examples
+
+*C Planned Core Services:
+
+*C 1. Memory Services:
+*C - Vector Database (ChromaDB)
+*C - SQL Database (PostgreSQL)
+*C - Cache Management
+*C - State Tracking
+
+*C 2. LLM Services:
+*C - OpenAI GPT-4
+*C - Anthropic Claude
+*C - Local Ollama Models
+*C - Model Router/Load Balancer
+
+*C 3. Search Services:
+*C - SearXNG (self-hosted)
+*C - RAG Pipeline
+*C - Web Scraping
+*C - Document Processing
+
+*C 4. Infrastructure Services:
+*C - Logger Service
+*C - Security Service
+*C - Resource Manager
+*C - Task Scheduler
+*C - Message Queue
+
+*C 5. Media Services:
+*C - Text-to-Speech
+*C - Speech-to-Text
+*C - Image Generation (ComfyUI)
+*C - Audio Processing
+
+*C 6. Communication Services:
+*C - Inter-agent Messaging
+*C - API Gateway
+*C - Event Bus
+*C - Notification System

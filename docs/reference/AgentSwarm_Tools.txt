@@ -1,0 +1,646 @@
+*C Expected Tools List:
+
+*C 1. Search & Research Tools:
+*C - SearXNG Client
+*C - Web Scraper
+*C - Document Parser
+*C - Citation Manager
+*C - Academic API Clients (arXiv, PubMed)
+
+*C 2. Communication Tools:
+** - Google Hybrid Toolset template
+*C   - Email Client
+*C   - Calendar Manager
+**   - Tasks Manager
+**   - Docs Editor
+**   - Sheets Editor
+**   - Slides Editor
+**   - Drive Manager
+**   - Speech Interface
+
+
+*C - Chat Interface
+*C - Notification Handler
+*C - SMS Gateway
+
+
+*C 3. Content Processing Tools:
+*C - Text Processor
+*C - PDF Generator
+*C - Image Editor
+*C - Audio Processor
+*C - Format Converter
+
+*C 4. Development Tools:
+*C - Code Parser
+*C - Git Client
+*C - Documentation Generator
+*C - Test Runner
+*C - Dependency Manager
+
+*C 5. Data Management Tools:
+*C - Data Validator
+*C - Format Converter
+*C - Backup Manager
+*C - Import/Export Handler
+*C - Data Cleaner
+
+*C 6. Integration Tools:
+*C - API Client Generator
+*C - Webhook Manager
+*C - OAuth Handler
+*C - Rate Limiter
+*C - Response Formatter
+
+*C ```typescript
+export const toolConfig = {
+  metadata: {
+    name: "ToolName",
+    type: "search | communication | content | development | data | integration",
+    version: "1.0.0",
+    created: "YYYY-MM-DD",
+    updated: "YYYY-MM-DD",
+    description: "Brief description of tool's purpose"
+  },
+
+  functionality: {
+    purpose: "Primary function of the tool",
+    operations: ["operation1", "operation2"],
+    inputTypes: ["text", "file", "stream"],
+    outputTypes: ["text", "file", "stream"],
+    mode: ["sync", "async", "batch"]
+  },
+
+  integration: {
+    serviceAccess: {
+      required: ["service1", "service2"],
+      optional: ["service3"]
+    },
+    agentAccess: {
+      level: "all | restricted | specific",
+      allowedAgents: ["agent1", "agent2"]
+    },
+    authentication: {
+      type: "none | api_key | oauth | custom",
+      scope: "tool | agent | global"
+    }
+  },
+
+  performance: {
+    timeout: "30s",
+    rateLimit: {
+      requests: 100,
+      period: "1m"
+    },
+    concurrency: 5,
+    caching: {
+      enabled: boolean,
+      duration: "1h"
+    }
+  },
+
+  errorHandling: {
+    retries: {
+      max: 3,
+      backoff: "exponential",
+      delay: "1s"
+    },
+    fallback: {
+      enabled: boolean,
+      strategy: "cache | alternate | fail"
+    },
+    validation: {
+      input: true,
+      output: true,
+      schema: "strict | lenient"
+    }
+  },
+
+  resources: {
+    memory: "256M",
+    storage: "1G",
+    compute: "low | medium | high"
+  },
+
+  monitoring: {
+    logging: {
+      level: "info | debug | error",
+      metrics: ["latency", "usage", "errors"]
+    },
+    alerts: {
+      conditions: ["error_rate > 5%", "latency > 2s"],
+      channels: ["log", "notification"]
+    }
+  }
+} as const;
+
+export type ToolConfig = typeof toolConfig;
+*C ```
+
+*C ```typescript
+// Gmail Tool Configuration
+export const gmailToolConfig = {
+  metadata: {
+    name: "Gmail Tool",
+    type: "communication",
+    version: "1.0.0",
+    created: "2024-03-19",
+    updated: "2024-03-19",
+    description: "Gmail integration for email communication"
+  },
+
+  functionality: {
+    purpose: "Handle email communications via Gmail",
+    operations: [
+      "sendEmail",
+      "readEmail",
+      "searchEmails",
+      "manageLabels",
+      "handleAttachments",
+      "createDrafts",
+      "manageFolders"
+    ],
+    inputTypes: ["text", "file", "email_template"],
+    outputTypes: ["email_object", "attachment", "status"],
+    mode: ["sync", "async"]
+  },
+
+  integration: {
+    serviceAccess: {
+      required: ["gmail_api", "authentication_service"],
+      optional: ["template_service", "file_storage"]
+    },
+    agentAccess: {
+      level: "restricted",
+      allowedAgents: [
+        "orchestrator",
+        "personal_assistant",
+        "communication_handler"
+      ]
+    },
+    authentication: {
+      type: "oauth",
+      scope: "global",
+      permissions: [
+        "gmail.send",
+        "gmail.read",
+        "gmail.modify",
+        "gmail.compose"
+      ]
+    }
+  },
+
+  performance: {
+    timeout: "30s",
+    rateLimit: {
+      requests: 250,  // Gmail API quota
+      period: "1m"
+    },
+    concurrency: 3,
+    caching: {
+      enabled: true,
+      duration: "15m"
+    }
+  },
+
+  errorHandling: {
+    retries: {
+      max: 3,
+      backoff: "exponential",
+      delay: "2s"
+    },
+    fallback: {
+      enabled: true,
+      strategy: "cache"
+    },
+    validation: {
+      input: true,
+      output: true,
+      schema: "strict"
+    }
+  }
+};
+
+
+** -Typical Tool Example
+
+
+*C ```typescript
+// Base Google Workspace Tool Configuration
+export const googleBaseConfig = {
+  metadata: {
+    vendor: "Google",
+    version: "1.0.0",
+    created: "2024-03-19",
+    updated: "2024-03-19"
+  },
+
+  authentication: {
+    type: "oauth2",
+    scopes: ["profile", "email"],  // Base scopes
+    credentials: {
+      clientId: "process.env.GOOGLE_CLIENT_ID",
+      clientSecret: "process.env.GOOGLE_CLIENT_SECRET",
+      redirectUri: "process.env.GOOGLE_REDIRECT_URI"
+    },
+    tokenManagement: {
+      storage: "secure_keystore",
+      refreshThreshold: "5m",
+      maxRetries: 3
+    }
+  },
+
+  baseIntegration: {
+    rateLimit: {
+      defaultQuota: 100,
+      quotaWindow: "100s",
+      userQuotaMultiplier: 1
+    },
+    errorHandling: {
+      retryableErrors: [
+        "RATE_LIMIT_EXCEEDED",
+        "BACKEND_ERROR",
+        "TIMEOUT"
+      ],
+      retryStrategy: {
+        initialDelay: "1s",
+        maxDelay: "32s",
+        backoffMultiplier: 2
+      }
+    },
+    validation: {
+      strictMode: true,
+      validateResponses: true
+    }
+  },
+
+  monitoring: {
+    metrics: {
+      apiCalls: true,
+      latency: true,
+      errors: true,
+      quotaUsage: true
+    },
+    logging: {
+      level: "info",
+      includeIds: true,
+      maskSensitive: true
+    }
+  }
+} as const;
+
+// Calendar-specific configuration extending base
+export const calendarConfig = {
+  metadata: {
+    name: "Google Calendar Tool",
+    type: "workspace_calendar",
+    description: "Calendar management and scheduling"
+  },
+
+  permissions: {
+    scopes: [
+      "calendar.events",
+      "calendar.settings.readonly",
+      "calendar.calendarlist.readonly"
+    ],
+    accessLevels: ["reader", "writer", "owner"]
+  },
+
+  features: {
+    events: {
+      operations: [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "list",
+        "import",
+        "export"
+      ],
+      batchSupport: true,
+      maxBatchSize: 50
+    },
+    calendars: {
+      operations: [
+        "list",
+        "get",
+        "clear",
+        "delete",
+        "insert",
+        "update"
+      ],
+      maxCalendarsPerUser: 100
+    },
+    scheduling: {
+      freeBusyQueries: true,
+      resourceCalendars: true,
+      recurringEvents: true,
+      notifications: {
+        email: true,
+        push: true
+      }
+    }
+  },
+
+  constraints: {
+    events: {
+      maxAttendees: 200,
+      maxRecurrence: "2y",
+      maxInstances: 250
+    },
+    timeouts: {
+      read: "10s",
+      write: "15s",
+      query: "20s"
+    },
+    quotas: {
+      queries: {
+        perMinute: 300,
+        perDay: 20000
+      }
+    }
+  },
+
+  integration: {
+    requiredServices: [
+      "authentication_service",
+      "timezone_service"
+    ],
+    optionalServices: [
+      "notification_service",
+      "user_preferences"
+    ],
+    webhooks: {
+      supported: true,
+      events: [
+        "event.created",
+        "event.updated",
+        "event.deleted"
+      ]
+    }
+  }
+} as const;
+
+export type GoogleBaseConfig = typeof googleBaseConfig;
+export type CalendarConfig = typeof calendarConfig;
+*C ```
+// Gmail-specific configuration extending base Google config
+export const gmailConfig = {
+  metadata: {
+    name: "Google Gmail Tool",
+    type: "workspace_communication",
+    description: "Email management and communication"
+  },
+
+  permissions: {
+    scopes: [
+      "gmail.send",
+      "gmail.readonly",
+      "gmail.modify",
+      "gmail.compose",
+      "gmail.labels"
+    ],
+    accessLevels: ["basic", "full", "settings"]
+  },
+
+  features: {
+    messages: {
+      operations: [
+        "send",
+        "read",
+        "draft",
+        "delete",
+        "search",
+        "forward",
+        "reply"
+      ],
+      batchSupport: true,
+      maxBatchSize: 100,
+      attachments: {
+        maxSize: "25MB",
+        allowedTypes: ["*/*"],
+        scanEnabled: true
+      }
+    },
+    labels: {
+      operations: [
+        "create",
+        "list",
+        "update",
+        "delete"
+      ],
+      maxCustomLabels: 500,
+      nested: true
+    },
+    filters: {
+      operations: [
+        "create",
+        "list",
+        "update",
+        "delete"
+      ],
+      maxFilters: 1000
+    }
+  },
+
+  constraints: {
+    sending: {
+      dailyLimit: 2000,
+      recipientLimit: 500,
+      rateLimits: {
+        perMinute: 250,
+        perDay: 20000
+      }
+    },
+    storage: {
+      quota: "15GB",  // Shared with Drive
+      archiveOptions: ["archive", "delete", "custom"]
+    },
+    timeouts: {
+      send: "30s",
+      retrieve: "10s",
+      search: "20s"
+    }
+  },
+
+  integration: {
+    requiredServices: [
+      "authentication_service",
+      "spam_filter"
+    ],
+    optionalServices: [
+      "calendar_service",  // For event-related emails
+      "drive_service",     // For attachments
+      "contacts_service"   // For address completion
+    ],
+    webhooks: {
+      supported: true,
+      events: [
+        "message.received",
+        "message.sent",
+        "label.updated",
+        "quota.exceeded"
+      ],
+      pushNotifications: true
+    },
+    templates: {
+      supported: true,
+      dynamic: true,
+      variables: ["user", "date", "signature"]
+    }
+  }
+} as const;
+
+export type GmailConfig = typeof gmailConfig;
+
+
+// SearXNG Client Tool Configuration
+export const searxngConfig = {
+  metadata: {
+    name: "SearXNG Client Tool",
+    type: "search",
+    version: "1.0.0",
+    created: "2024-03-19",
+    updated: "2024-03-19",
+    description: "Privacy-focused metasearch engine client"
+  },
+
+  functionality: {
+    purpose: "Unified search interface across multiple engines",
+    operations: [
+      "generalSearch",
+      "imageSearch",
+      "newsSearch",
+      "academicSearch",
+      "mapSearch",
+      "videoSearch",
+      "fileSearch"
+    ],
+    inputTypes: [
+      "query_text",
+      "search_params",
+      "filters"
+    ],
+    outputTypes: [
+      "search_results",
+      "aggregated_data",
+      "suggestions"
+    ],
+    mode: ["sync", "async"]
+  },
+
+  searchFeatures: {
+    engines: {
+      general: [
+        "google",
+        "bing",
+        "duckduckgo",
+        "brave"
+      ],
+      academic: [
+        "google_scholar",
+        "semantic_scholar",
+        "base"
+      ],
+      news: [
+        "google_news",
+        "bing_news",
+        "reuters"
+      ],
+      specialized: [
+        "github",
+        "stackoverflow",
+        "wikipedia"
+      ]
+    },
+    filters: {
+      time: ["day", "week", "month", "year"],
+      type: ["text", "images", "videos", "news"],
+      language: ["en", "es", "fr", "de"],
+      region: ["us", "eu", "global"],
+      safesearch: ["strict", "moderate", "none"]
+    },
+    aggregation: {
+      deduplication: true,
+      ranking: "weighted_score",
+      clustering: true,
+      snippetGeneration: true
+    }
+  },
+
+  performance: {
+    timeout: "10s",
+    rateLimit: {
+      requests: 100,
+      period: "1m",
+      perEngine: 30
+    },
+    concurrency: 5,
+    caching: {
+      enabled: true,
+      duration: "1h",
+      strategy: "lru"
+    }
+  },
+
+  errorHandling: {
+    retries: {
+      max: 2,
+      backoff: "exponential",
+      delay: "500ms"
+    },
+    fallback: {
+      enabled: true,
+      strategy: "engine_rotation",
+      minEngines: 2
+    },
+    validation: {
+      input: true,
+      output: true,
+      schema: "lenient"  // Search results can vary
+    }
+  },
+
+  integration: {
+    serviceAccess: {
+      required: ["searxng_instance", "proxy_service"],
+      optional: ["cache_service", "analytics_service"]
+    },
+    agentAccess: {
+      level: "restricted",
+      allowedAgents: [
+        "research_agent",
+        "knowledge_agent",
+        "orchestrator"
+      ]
+    },
+    privacy: {
+      tracking: "disabled",
+      logging: "minimal",
+      ipAnonymization: true,
+      resultsCleaning: true
+    }
+  },
+
+  monitoring: {
+    logging: {
+      level: "info",
+      metrics: [
+        "queries_per_engine",
+        "response_times",
+        "error_rates",
+        "cache_hits"
+      ]
+    },
+    alerts: {
+      conditions: [
+        "error_rate > 10%",
+        "response_time > 5s",
+        "engine_failure > 2"
+      ],
+      channels: ["log", "notification"]
+    }
+  }
+} as const;
+
+export type SearxngConfig = typeof searxngConfig;

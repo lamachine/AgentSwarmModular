@@ -1,0 +1,485 @@
+## List all services
+## Create a generic service template
+## Create two specific service to use as examples
+
+*C Planned Core Services:
+
+*C 1. Memory Services:
+*C - Vector Database (ChromaDB)
+*C - SQL Database (PostgreSQL)
+*C - Cache Management
+*C - State Tracking
+
+*C 2. LLM Services:
+*C - OpenAI GPT-4
+*C - Anthropic Claude
+*C - Local Ollama Models
+*C - Model Router/Load Balancer
+
+*C 3. Search Services:
+*C - SearXNG (self-hosted)
+*C - RAG Pipeline
+*C - Web Scraping
+*C - Document Processing
+
+*C 4. Infrastructure Services:
+*C - Logger Service
+*C - Security Service
+*C - Resource Manager
+*C - Task Scheduler
+*C - Message Queue
+
+*C 5. Media Services:
+*C - Text-to-Speech
+*C - Speech-to-Text
+*C - Image Generation (ComfyUI)
+*C - Audio Processing
+
+*C 6. Communication Services:
+*C - Inter-agent Messaging
+*C - API Gateway
+*C - Event Bus
+*C - Notification System
+
+*C ```typescript
+export const serviceConfig = {
+  metadata: {
+    name: "ServiceName",
+    type: "memory | llm | search | infrastructure | media | communication",
+    version: "1.0.0",
+    created: "YYYY-MM-DD",
+    updated: "YYYY-MM-DD"
+  },
+
+  interface: {
+    access: {
+      level: "system | agent | external",
+      mode: ["sync", "async", "stream"],
+      protocol: ["rest", "grpc", "websocket", "queue"]
+    },
+    endpoints: {
+      primary: "/api/v1/service",
+      health: "/health",
+      metrics: "/metrics",
+      admin: "/admin"
+    }
+  },
+
+  resources: {
+    compute: {
+      cpu: "0.5 | 1 | 2",
+      memory: "512M | 1G | 2G",
+      gpu: "none | shared | dedicated"
+    },
+    storage: {
+      type: "ephemeral | persistent",
+      size: "1G | 10G | 100G",
+      class: "standard | fast | cached"
+    },
+    network: {
+      ingress: "low | medium | high",
+      egress: "low | medium | high",
+      bandwidth: "100M | 1G | 10G"
+    }
+  },
+
+  security: {
+    authentication: ["none", "api_key", "oauth", "jwt"],
+    authorization: ["none", "role_based", "policy_based"],
+    encryption: {
+      atRest: boolean,
+      inTransit: boolean,
+      keyManagement: "none | vault | kms"
+    }
+  },
+
+  scaling: {
+    mode: "none | horizontal | vertical",
+    min: 1,
+    max: 10,
+    targetCPU: 80,
+    targetMemory: 80
+  },
+
+  monitoring: {
+    metrics: ["cpu", "memory", "latency", "errors"],
+    logging: {
+      level: "debug | info | warn | error",
+      format: "json | text",
+      retention: "7d | 30d | 90d"
+    },
+    alerts: {
+      cpu: "> 90%",
+      memory: "> 85%",
+      errors: "> 1%",
+      latency: "> 500ms"
+    }
+  },
+
+  dependencies: {
+    required: ["service1", "service2"],
+    optional: ["service3", "service4"],
+    external: ["api1", "api2"]
+  }
+} as const;
+
+export type ServiceConfig = typeof serviceConfig;
+*C ```
+
+*C ```typescript
+export const serviceConfig = {
+  metadata: {
+    name: "ServiceName",
+    type: "memory | llm | search | infrastructure | media | communication",
+    version: "1.0.0",
+    created: "YYYY-MM-DD",
+    updated: "YYYY-MM-DD"
+  },
+
+  interface: {
+    access: {
+      level: "system | agent | external",
+      mode: ["sync", "async", "stream"],
+      protocol: ["rest", "grpc", "websocket", "queue"]
+    },
+    endpoints: {
+      primary: "/api/v1/service",
+      health: "/health",
+      metrics: "/metrics",
+      admin: "/admin"
+    }
+  },
+
+  resources: {
+    compute: {
+      cpu: "0.5 | 1 | 2",
+      memory: "512M | 1G | 2G",
+      gpu: "none | shared | dedicated"
+    },
+    storage: {
+      type: "ephemeral | persistent",
+      size: "1G | 10G | 100G",
+      class: "standard | fast | cached"
+    },
+    network: {
+      ingress: "low | medium | high",
+      egress: "low | medium | high",
+      bandwidth: "100M | 1G | 10G"
+    }
+  },
+
+  security: {
+    authentication: ["none", "api_key", "oauth", "jwt"],
+    authorization: ["none", "role_based", "policy_based"],
+    encryption: {
+      atRest: boolean,
+      inTransit: boolean,
+      keyManagement: "none | vault | kms"
+    }
+  },
+
+  scaling: {
+    mode: "none | horizontal | vertical",
+    min: 1,
+    max: 10,
+    targetCPU: 80,
+    targetMemory: 80
+  },
+
+  monitoring: {
+    metrics: ["cpu", "memory", "latency", "errors"],
+    logging: {
+      level: "debug | info | warn | error",
+      format: "json | text",
+      retention: "7d | 30d | 90d"
+    },
+    alerts: {
+      cpu: "> 90%",
+      memory: "> 85%",
+      errors: "> 1%",
+      latency: "> 500ms"
+    }
+  },
+
+  dependencies: {
+    required: ["service1", "service2"],
+    optional: ["service3", "service4"],
+    external: ["api1", "api2"]
+  }
+} as const;
+
+export type ServiceConfig = typeof serviceConfig;
+*C ```
+
+*C Memory Service Planning Guide:
+
+*C 1. Service Purpose:
+*C - Primary: Provide centralized memory and knowledge management
+*C - Secondary: Enable context persistence and knowledge sharing
+*C - Critical: Maintain system state and agent synchronization
+
+*C 2. Core Components:
+*C - Vector Database (ChromaDB)
+*C   - Semantic search capabilities
+*C   - Embedding storage
+*C   - Similarity matching
+*C   - Collection management
+
+*C - SQL Database (PostgreSQL)
+*C   - Structured data storage
+*C   - Relationship management
+*C   - Transaction support
+*C   - Query optimization
+
+*C - Cache Layer
+*C   - Redis for hot data
+*C   - Session management
+*C   - Temporary storage
+*C   - Performance optimization
+
+*C 3. Key Features:
+*C - Memory Types:
+*C   - Short-term (conversation context)
+*C   - Working (active tasks/sessions)
+*C   - Long-term (permanent knowledge)
+*C   - Episodic (event sequences)
+*C   - Semantic (conceptual relationships)
+
+*C - Memory Operations:
+*C   - Storage and retrieval
+*C   - Context management
+*C   - Pattern recognition
+*C   - Knowledge synthesis
+*C   - Forgetting mechanisms
+
+*C 4. Integration Points:
+*C - Agent Interfaces:
+*C   - Direct API access
+*C   - Event subscriptions
+*C   - Query endpoints
+*C   - Batch operations
+
+*C - System Interfaces:
+*C   - Backup systems
+*C   - Monitoring tools
+*C   - Admin console
+*C   - Analytics pipeline
+
+*C 5. Performance Requirements:
+*C - Response Times:
+*C   - Read: < 50ms (95th percentile)
+*C   - Write: < 100ms (95th percentile)
+*C   - Search: < 200ms (95th percentile)
+*C - Throughput:
+*C   - 1000 ops/second baseline
+*C   - 5000 ops/second peak
+*C - Availability: 99.99%
+*C - Data Durability: 99.999999%
+
+*C 6. Security Considerations:
+*C - Access Control:
+*C   - Role-based access
+*C   - API authentication
+*C   - Request validation
+*C - Data Protection:
+*C   - Encryption at rest
+*C   - Encryption in transit
+*C   - Key rotation
+*C - Compliance:
+*C   - Data retention policies
+*C   - Privacy controls
+*C   - Audit logging
+
+*C 7. Scaling Strategy:
+*C - Horizontal scaling for read operations
+*C - Vertical scaling for write operations
+*C - Sharding strategy for large datasets
+*C - Replication for high availability
+*C - Cache distribution
+
+*C Memory Service Planning Guide:
+
+*C 1. Service Purpose:
+*C - Primary: Provide centralized memory and knowledge management
+*C - Secondary: Enable context persistence and knowledge sharing
+*C - Critical: Maintain system state and agent synchronization
+
+*C 2. Core Components:
+*C - Vector Database (ChromaDB)
+*C   - Semantic search capabilities
+*C   - Embedding storage
+*C   - Similarity matching
+*C   - Collection management
+
+*C - SQL Database (PostgreSQL)
+*C   - Structured data storage
+*C   - Relationship management
+*C   - Transaction support
+*C   - Query optimization
+
+*C - Cache Layer
+*C   - Redis for hot data
+*C   - Session management
+*C   - Temporary storage
+*C   - Performance optimization
+
+*C 3. Key Features:
+*C - Memory Types:
+*C   - Short-term (conversation context)
+*C   - Working (active tasks/sessions)
+*C   - Long-term (permanent knowledge)
+*C   - Episodic (event sequences)
+*C   - Semantic (conceptual relationships)
+
+*C - Memory Operations:
+*C   - Storage and retrieval
+*C   - Context management
+*C   - Pattern recognition
+*C   - Knowledge synthesis
+*C   - Forgetting mechanisms
+
+*C 4. Integration Points:
+*C - Agent Interfaces:
+*C   - Direct API access
+*C   - Event subscriptions
+*C   - Query endpoints
+*C   - Batch operations
+
+*C - System Interfaces:
+*C   - Backup systems
+*C   - Monitoring tools
+*C   - Admin console
+*C   - Analytics pipeline
+
+*C 5. Performance Requirements:
+*C - Response Times:
+*C   - Read: < 50ms (95th percentile)
+*C   - Write: < 100ms (95th percentile)
+*C   - Search: < 200ms (95th percentile)
+*C - Throughput:
+*C   - 1000 ops/second baseline
+*C   - 5000 ops/second peak
+*C - Availability: 99.99%
+*C - Data Durability: 99.999999%
+
+*C 6. Security Considerations:
+*C - Access Control:
+*C   - Role-based access
+*C   - API authentication
+*C   - Request validation
+*C - Data Protection:
+*C   - Encryption at rest
+*C   - Encryption in transit
+*C   - Key rotation
+*C - Compliance:
+*C   - Data retention policies
+*C   - Privacy controls
+*C   - Audit logging
+
+*C 7. Scaling Strategy:
+*C - Horizontal scaling for read operations
+*C - Vertical scaling for write operations
+*C - Sharding strategy for large datasets
+*C - Replication for high availability
+*C - Cache distribution
+
+
+*C Vector Database Service Specification:
+
+*C 1. Service Overview:
+*C - Name: Vector Database Service
+*C - Implementation: ChromaDB
+*C - Primary Purpose: Semantic search and similarity matching
+*C - Critical Role: Knowledge embedding storage and retrieval
+
+*C 2. Technical Specifications:
+*C - Database Type: Vector Store
+*C - Embedding Models:
+*C   - Default: all-MiniLM-L6-v2
+*C   - Optional: custom models
+*C - Dimension Support: 384-1536
+*C - Distance Metrics:
+*C   - Cosine similarity
+*C   - Euclidean distance
+*C   - Dot product
+
+*C 3. Core Functionality:
+*C - Collection Management:
+*C   - Create/Delete collections
+*C   - Namespace organization
+*C   - Metadata management
+*C   - Version control
+
+*C - Data Operations:
+*C   - Upsert embeddings
+*C   - Batch processing
+*C   - Similarity search
+*C   - Filtering and faceting
+*C   - Metadata queries
+
+*C - Index Management:
+*C   - Auto-indexing
+*C   - Index optimization
+*C   - Reindexing support
+*C   - Index backup/restore
+
+*C 4. Performance Targets:
+*C - Query Response:
+*C   - p95: < 100ms
+*C   - p99: < 200ms
+*C - Indexing Speed:
+*C   - 10k vectors/second
+*C - Storage Efficiency:
+*C   - Compression ratio: 4:1
+*C   - Index overhead: < 20%
+
+*C 5. Scaling Parameters:
+*C - Collection Size:
+*C   - Target: 1M vectors/collection
+*C   - Max: 10M vectors/collection
+*C - Concurrent Operations:
+*C   - Reads: 1000/second
+*C   - Writes: 100/second
+*C - Total Storage:
+*C   - Initial: 100GB
+*C   - Maximum: 1TB
+
+*C 6. Integration Interfaces:
+*C - REST API:
+*C   - CRUD operations
+*C   - Search endpoints
+*C   - Admin functions
+*C - Python SDK:
+*C   - Direct integration
+*C   - Batch operations
+*C   - Advanced queries
+*C - Event Stream:
+*C   - Updates
+*C   - System status
+*C   - Alerts
+
+*C 7. Data Management:
+*C - Persistence:
+*C   - Storage backend: SQLite/PostgreSQL
+*C   - Backup frequency: Daily
+*C   - Retention period: 90 days
+*C - Monitoring:
+*C   - Index health
+*C   - Query performance
+*C   - Storage utilization
+*C - Maintenance:
+*C   - Automated cleanup
+*C   - Optimization schedule
+*C   - Version updates
+
+*C 8. Security Requirements:
+*C - Authentication:
+*C   - API key based
+*C   - Service accounts
+*C - Authorization:
+*C   - Collection-level access
+*C   - Operation-level permissions
+*C - Encryption:
+*C   - At rest: AES-256
+*C   - In transit: TLS 1.3
+

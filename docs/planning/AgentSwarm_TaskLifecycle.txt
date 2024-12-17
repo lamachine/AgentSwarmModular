@@ -1,0 +1,131 @@
+Task_Lifecycle.ts 
+interface Task {
+  metadata: {
+    id: string;
+    created: Date;
+    priority: 'low' | 'normal' | 'high' | 'critical';
+    source: {
+      type: 'user' | 'agent' | 'system';
+      id: string;
+    };
+    status: 'created' | 'decomposed' | 'assigned' | 'executing' | 'completed' | 'failed';
+  };
+
+  requirements: {
+    estimatedDuration: number;
+    requiredTools: string[];
+    requiredAgents: string[];
+    resourceLimits: {
+      cpu?: number;
+      memory?: number;
+      storage?: number;
+    };
+  };
+
+  decomposition?: {
+    subtasks: Task[];
+    dependencies: {
+      [taskId: string]: string[];  // taskId -> dependent taskIds
+    };
+    completionCriteria: string[];
+  };
+
+  assignment: {
+    primaryAgent: string;
+    supportingAgents: string[];
+    toolAccess: string[];
+    priority: number;
+    deadline?: Date;
+  };
+
+  execution: {
+    progress: number;
+    startTime?: Date;
+    lastUpdate: Date;
+    logs: {
+      timestamp: Date;
+      level: 'info' | 'warning' | 'error';
+      message: string;
+    }[];
+    metrics: {
+      resourceUsage: {
+        cpu: number;
+        memory: number;
+        storage: number;
+      };
+      performance: {
+        responseTime: number;
+        throughput: number;
+      };
+    };
+  };
+
+  completion: {
+    status: 'success' | 'failure' | 'partial';
+    results: any[];
+    validationChecks: {
+      name: string;
+      passed: boolean;
+      message?: string;
+    }[];
+    feedback?: {
+      rating: number;
+      comments: string;
+    };
+  };
+}
+
+Lifecycle_handler.py
+class TaskLifecycleManager:
+    def __init__(self, orchestrator_agent, memory_service, resource_manager):
+        self.orchestrator = orchestrator_agent
+        self.memory = memory_service
+        self.resources = resource_manager
+        
+    async def create_task(self, request: dict) -> Task:
+        """Create a new task from user/agent request"""
+        # Validate request
+        # Estimate resources
+        # Assign priority
+        # Create task object
+        pass
+
+    async def decompose_task(self, task: Task) -> Task:
+        """Break down complex tasks into subtasks"""
+        # Identify subtasks
+        # Map dependencies
+        # Allocate resources
+        # Update task object
+        pass
+
+    async def assign_task(self, task: Task) -> Task:
+        """Match task to appropriate agents"""
+        # Check agent capabilities
+        # Verify agent availability
+        # Balance workload
+        # Update task assignment
+        pass
+
+    async def monitor_execution(self, task: Task) -> None:
+        """Track task progress and handle issues"""
+        # Monitor progress
+        # Track resource usage
+        # Handle errors
+        # Update metrics
+        pass
+
+    async def complete_task(self, task: Task) -> Task:
+        """Validate and finalize task completion"""
+        # Validate results
+        # Aggregate responses
+        # Cleanup resources
+        # Update task status
+        pass
+
+    async def handle_failure(self, task: Task, error: Exception) -> None:
+        """Handle task failures and recovery"""
+        # Log error
+        # Attempt recovery
+        # Notify relevant agents
+        # Update task status
+        pass
